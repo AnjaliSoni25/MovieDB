@@ -1,7 +1,6 @@
 package com.anjali.moviedb
 
 import android.os.Bundle
-import android.widget.Spinner
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -18,14 +17,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,7 +27,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -78,7 +71,7 @@ fun MovieGridScreen(viewModel: MovieViewModel) {
             .padding(16.dp)
     ) {
         // Movie grid UI
-        MovieGrid(viewModel = viewModel, movies = movies, onItemClick = { })
+        MovieGrid(viewModel = viewModel, movies = movies) { }
 
 
     }
@@ -98,17 +91,19 @@ fun MovieGridPreview() {
         Movie(1, "Movie 1", "https://www.everypixel.com/covers/free/photos/flower/cover.jpg", "Moview Name",4.5),
         Movie(1, "Movie 1", "https://www.everypixel.com/covers/free/photos/flower/cover.jpg", "Moview Name",4.5),
            )
-    /*MovieGrid(
-        movies = movies,
-        onItemClick = { }
-    )*/
+    MovieGrid(
+        viewModel = null,
+        movies = movies
+
+    ) { }
 
 }
 
 @Composable
-fun MovieGrid(viewModel: MovieViewModel,
-              movies: List<Movie>,
-              onItemClick: (Movie) -> Unit
+fun MovieGrid(
+    viewModel: MovieViewModel?,
+    movies: List<Movie>,
+    onItemClick: (Movie) -> Unit
 ) {
 
     var expanded by remember { mutableStateOf(false) }
